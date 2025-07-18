@@ -48,27 +48,27 @@ const chainInfos = [
     web3Url: 'https://data-seed-prebsc-1-s1.binance.org:8545',
   },
   {
-    chainId: 3,
-    chainName: 'Ropsent',
+    chainId: 11155111,
+    chainName: 'Sepolia',
     contractAddress: MPLGR_CONTRACT_ADDRESS,
     pledgerBridgeContractAddress: PLEDGER_BRIDGE_ETH_CONTRACT_ADDRESS,
     chainImageAsset: require('@/assets/images/Ethereum.svg'),
-    chainDesc: 'Ropsent',
+    chainDesc: 'Sepolia',
     currencyName: 'MPLGR',
     currencyImageAsset: require('@/assets/images/MPLGR.svg'),
     symbol: 'ETH',
     netWorkInfo: {
-      chainId: web3.utils.toHex(3),
-      chainName: 'Ropsten 测试网络',
+      chainId: web3.utils.toHex(11155111),
+      chainName: 'Sepolia testnet',
       nativeCurrency: {
         name: 'ETH',
         symbol: 'ETH',
         decimals: 18,
       },
-      rpcUrls: [`https://ropsten.infura.io/v3/${INFURA_KEY}`],
-      blockExplorerUrls: ['https://ropsten.etherscan.io'],
+      rpcUrls: [`https://sepolia.infura.io/v3/${INFURA_KEY}`],
+      blockExplorerUrls: ['https://sepolia.etherscan.io'],
     },
-    web3Url: `https://ropsten.infura.io/v3/${INFURA_KEY}`,
+    web3Url: `https://sepolia.infura.io/v3/${INFURA_KEY}`,
   },
   {
     chainName: 'BSC',
@@ -120,10 +120,10 @@ const chainInfos = [
 
 const envChainInfos =
   process.env.NODE_ENV === 'development'
-    ? filter(chainInfos, (c) => c.chainId === 3 || c.chainId === 97)
+    ? filter(chainInfos, (c) => c.chainId === 11155111 || c.chainId === 97)
     : filter(chainInfos, (c) => c.chainId === 56 || c.chainId === 1);
 
-export type ChainInfoKeysType = typeof envChainInfos[number]['chainName'];
+export type ChainInfoKeysType = (typeof envChainInfos)[number]['chainName'];
 
 export const chainInfoKeys: ChainInfoKeysType[] = map(envChainInfos, (c) => c.chainName);
 

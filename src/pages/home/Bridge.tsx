@@ -43,7 +43,20 @@ export default () => {
   const fetchBalance = useFetchBalance();
 
   const getGasFee = async (a: string) => {
-    const contractAmount = multiplied_18(a)!;
+    const contractAmount = multiplied_18(a);
+    if (
+      !chainInfo?.contractAddress ||
+      !chainInfo?.pledgerBridgeContractAddress ||
+      !contractAmount
+    ) {
+      setGasFee(undefined);
+      console.log('Missing parameter for approveEstimateGas', {
+        contractAddress: chainInfo?.contractAddress,
+        approveAddress: chainInfo?.pledgerBridgeContractAddress,
+        contractAmount,
+      });
+      return;
+    }
     try {
       const newGasFee = await services.evmServer.approveEstimateGas(
         chainInfo.contractAddress,
@@ -90,8 +103,12 @@ export default () => {
 
   const handleClickApprove = async () => {
     setApproveLoading(true);
-    const contractAmount = multiplied_18(amount!)!;
+    // const contractAmount = multiplied_18(amount!)!;
+    const contractAmount = amount!;
     try {
+      console.log('contractAmount', contractAmount);
+      console.log('chainInfo.contractAddress', chainInfo.contractAddress);
+      console.log('chainInfo.pledgerBridgeContractAddress', chainInfo.pledgerBridgeContractAddress);
       await services.evmServer.approve(
         chainInfo.contractAddress,
         chainInfo.pledgerBridgeContractAddress,
@@ -124,6 +141,9 @@ export default () => {
         console.log(res);
       });
   }, []);
+
+  // Debug: print balance and chainInfoKey before rendering AmountInput
+  // console.log('AmountInput debug:', { balance, chainInfoKey });
 
   return (
     <>

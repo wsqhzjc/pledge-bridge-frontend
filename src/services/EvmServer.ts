@@ -22,7 +22,15 @@ const EvmServer = {
   async approve(ERC20Address: string, approveAddress: string, amount: string) {
     const contract = getNewERC20AbiContract(ERC20Address);
     const options = await gasOptions();
-    contract.methods.approve(approveAddress, amount).estimateGas({});
+    // Get the user's account
+    const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+    const account = accounts[0];
+    if (!account) {
+      throw new Error('No wallet connected');
+    }
+    // Add the from field to options
+    options.from = account;
+    // Now send the transaction
     return await contract.methods.approve(approveAddress, amount).send(options);
   },
 

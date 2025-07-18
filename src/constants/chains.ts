@@ -5,11 +5,11 @@ export enum SupportedChainId {
   MAINNET = 1,
 
   BSCTEST = 97,
-  ROPSTEN = 3,
   RINKEBY = 4,
   GOERLI = 5,
   KOVAN = 42,
   BINANCE = 56,
+  SEPOLIA = 11155111,
 
   ARBITRUM_ONE = 42161,
   ARBITRUM_RINKEBY = 421611,
@@ -23,7 +23,7 @@ export enum SupportedChainId {
 
 export const CHAIN_IDS_TO_NAMES = {
   [SupportedChainId.MAINNET]: 'mainnet',
-  [SupportedChainId.ROPSTEN]: 'ropsten',
+  [SupportedChainId.SEPOLIA]: 'sepolia',
   [SupportedChainId.BSCTEST]: 'BSC-testnet',
   [SupportedChainId.RINKEBY]: 'rinkeby',
   [SupportedChainId.GOERLI]: 'goerli',
@@ -44,7 +44,7 @@ export const ALL_SUPPORTED_CHAIN_IDS: SupportedChainId[] = Object.values(Support
   (id) => typeof id === 'number',
 ) as SupportedChainId[];
 
-export const DEV_SUPPORTED_CHAIN_IDS = [SupportedChainId.BSCTEST, SupportedChainId.ROPSTEN];
+export const DEV_SUPPORTED_CHAIN_IDS = [SupportedChainId.BSCTEST, SupportedChainId.SEPOLIA];
 export const PRO_SUPPORTED_CHAIN_IDS = [SupportedChainId.MAINNET, SupportedChainId.BINANCE];
 
 // export const SUPPORTED_GAS_ESTIMATE_CHAIN_IDS = [
@@ -59,7 +59,7 @@ export const PRO_SUPPORTED_CHAIN_IDS = [SupportedChainId.MAINNET, SupportedChain
  */
 // export const L1_CHAIN_IDS = [
 //   SupportedChainId.MAINNET,
-//   SupportedChainId.ROPSTEN,
+//   SupportedChainId.SEPOLIA,
 //   SupportedChainId.RINKEBY,
 //   SupportedChainId.GOERLI,
 //   SupportedChainId.KOVAN,

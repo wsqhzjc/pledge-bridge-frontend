@@ -7,6 +7,8 @@
 ### 环境启动准备
 
 ```bash
+npm config set registry https://registry.npmjs.org/
+rm -rf node_modules package-lock.json yarn.lock
 yarn
 ```
 

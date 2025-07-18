@@ -15,7 +15,9 @@ function useFetchBalance() {
   const fetchBalance = async () => {
     try {
       const newBalance = await services.evmServer.balanceOf(chainInfo.contractAddress, account!);
-      setBalance({ ...balance, [chainInfoKey]: divided_18(newBalance) });
+      console.log('newBalance', newBalance);
+      // setBalance({ ...balance, [chainInfoKey]: divided_18(newBalance) });
+      setBalance({ ...balance, [chainInfoKey]: newBalance });
     } catch (error) {
       console.log(error);
     }

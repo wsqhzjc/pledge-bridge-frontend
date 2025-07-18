@@ -93,12 +93,19 @@ const ConfirmDrawer = ({
 
   const handleClickTransferred = async () => {
     setTransferredLoading(true);
+    console.log('handleClickTransferred', {
+      contract,
+      amount,
+      srcChain,
+      destChain: filter(chainInfoKeys, (c) => c !== srcChain)[0],
+    });
     try {
       const [method, options] = contract;
       const data = await (method as MethodPayableReturnContext).send(options as SendOptions);
       // 演示使用
       // await services.evmServer.execute_upkeep();
-      const contractAmount = multiplied_18(amount!);
+      // const contractAmount = multiplied_18(amount!);
+      const contractAmount = amount!;
       await addTx({
         src_chain: srcChain,
         dest_chain: filter(chainInfoKeys, (c) => c !== srcChain)[0],
@@ -122,8 +129,14 @@ const ConfirmDrawer = ({
 
   const getCurrentContract = async () => {
     let newContract;
-    const contractAmount = multiplied_18(amount!)!;
+    // const contractAmount = multiplied_18(amount!)!;
+    const contractAmount = amount!;
     const gasFeeValue = multiplied_18(get(bridgeGasFee, [chainInfoKey]));
+
+    console.log('getCurrentContract', {
+      contractAmount,
+      gasFeeValue,
+    });
     try {
       if (transferredType === 'deposit') {
         if (chainInfoKey === 'BSC-testnet') {
@@ -198,7 +211,8 @@ const ConfirmDrawer = ({
       <BlackKey>{account}</BlackKey>
       <Label>Gas Fee</Label>
       <BlackKey>
-        {divided_18(gasFee!)} {chainInfo.symbol}
+        {/* {divided_18(gasFee!)} {chainInfo.symbol} */}
+        {gasFee} {chainInfo.symbol}
       </BlackKey>
       {transferredType === 'deposit' && <Label>Cross-Chain Fee</Label>}
       {transferredType === 'deposit' && (
